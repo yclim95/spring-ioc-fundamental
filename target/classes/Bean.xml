@@ -5,11 +5,19 @@
         https://www.springframework.org/schema/beans/spring-beans.xsd">
         <bean id = "pPFactory" class="lithan.training.javawebapp.PaymentProcessorFactory"/>
         
-        <bean id="getPaymentProcessor" factory-method="getPaymentProcessor" factory-bean="pPFactory">
+        <bean id="getPaymentProcessorGPay" factory-method="getPaymentProcessor" factory-bean="pPFactory">
         	<constructor-arg name="mode" value="gpay"></constructor-arg>
         </bean>
         
-        <bean id="billingService" class="lithan.training.javawebapp.BillingService">
-        	<constructor-arg name="paymentProcessor" ref="getPaymentProcessor"></constructor-arg>
+         <bean id="getPaymentProcessorCard" factory-method="getPaymentProcessor" factory-bean="pPFactory">
+        	<constructor-arg name="mode" value="credit_card"></constructor-arg>
+        </bean>
+        
+        <bean id="billingServiceGPay" class="lithan.training.javawebapp.BillingService">
+        	<constructor-arg name="paymentProcessor" ref="getPaymentProcessorGPay"></constructor-arg>
+        </bean>
+        
+         <bean id="billingServiceCard" class="lithan.training.javawebapp.BillingService">
+        	<constructor-arg name="paymentProcessor" ref="getPaymentProcessorCard"></constructor-arg>
         </bean>
 </beans>
